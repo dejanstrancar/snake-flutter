@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Snake());
 
-class MyApp extends StatelessWidget{
+class Snake extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return MaterialApp(
@@ -21,8 +21,8 @@ class SnakeGame extends StatefulWidget{
 }
 
 class _SnakeGameState extends State<SnakeGame>{
-  final int squaresPerRow=20;
-  final int squaresPerCol=40;
+  final int squaresPerRow=40;
+  final int squaresPerCol=80;
   final fontStyle = const TextStyle(color:Colors.white, fontSize:20);
   final randomGen = Random();
 
@@ -32,7 +32,7 @@ class _SnakeGameState extends State<SnakeGame>{
   var isPlaying = false;
 
   void startGame(){
-    const duration = Duration(milliseconds: 200);
+    const duration = Duration(milliseconds: 100);
     snake = [
       [
         (squaresPerRow/2).floor(), (squaresPerCol/2).floor()
@@ -101,7 +101,7 @@ class _SnakeGameState extends State<SnakeGame>{
   }
 
   bool horizontalLimits(){
-    return (snake.first[1] < 0) || (snake.first[1] >= squaresPerCol);
+    return (snake.first[1] < 0) || (snake.first[1] > squaresPerCol);
   }
   bool verticalLimits(){
     return (snake.first[0] < 0) || (snake.first[0] > squaresPerRow);
@@ -135,7 +135,7 @@ class _SnakeGameState extends State<SnakeGame>{
         return AlertDialog(
           title: const Text("Game over"),
           content: Text(
-            'Score ${snake.length - 2}',
+            'Score: ${snake.length - 2}',
             style: const TextStyle(fontSize: 20),
           ),
           actions: <Widget>[
@@ -216,7 +216,7 @@ class _SnakeGameState extends State<SnakeGame>{
       margin: const EdgeInsets.all(1),
       decoration: BoxDecoration(
         color:color,
-        shape:BoxShape.circle,
+        shape:BoxShape.rectangle,
       )
     );
   }
